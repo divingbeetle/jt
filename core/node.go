@@ -30,7 +30,12 @@ const (
 
 const longTextLen = 255
 
-// Represents a node in the JSON structure tree.
+/**
+ * Node represents a position in the JSON structure, mapped to key-value pairs for child nodes.
+ * For Arrays, same node is reused for all elements.
+ * The types field has the types of values encountered at this node.
+ * Thus, for arrays, type records of all elements are accumulated here.
+ */
 type node struct {
 	types    typeFlags
 	children map[string]*node
@@ -49,7 +54,7 @@ func (node *node) getOrCreateChild(key string) *node {
 	return child
 }
 
-// Traverse and record type information
+// Recursively traverses the JSON structure, updating the node tree with type information.
 func walk(node *node, v any) {
 	switch val := v.(type) {
 	case []any:

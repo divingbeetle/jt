@@ -11,6 +11,7 @@ type Options struct {
 	StringCollation string
 }
 
+// Format Into a MySQL JSON_TABLE expression.
 func format(jsonStr string, root *node, opts Options) (string, error) {
 	cols, err := formatNode(root, "$", "", opts, 2)
 	if err != nil {
@@ -30,6 +31,7 @@ func format(jsonStr string, root *node, opts Options) (string, error) {
 ) AS jt`, escape(jsonStr), jsonPath, cols), nil
 }
 
+// Recursively format a node and its children.
 func formatNode(node *node, path, name string, opts Options, depth int) (string, error) {
 	isRoot := path == "$" && name == ""
 	currPath := path
