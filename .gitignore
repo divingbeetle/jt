@@ -1,0 +1,9 @@
+# Binary
+jt
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
